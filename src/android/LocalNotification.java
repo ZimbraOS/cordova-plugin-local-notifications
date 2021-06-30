@@ -278,6 +278,23 @@ public class LocalNotification extends CordovaPlugin {
         check(command);
     }
 
+     public static void schedule_Event_Update (JSONArray notifications, Context context) {
+        Manager mgr = Manager.getInstance(context);
+
+        for (int i = 0; i < notifications.length(); i++) {
+            JSONObject dict = notifications.optJSONObject(i);
+            Options options = new Options(dict);
+            Request request = new Request(options);
+
+            Notification notification =
+                    mgr.schedule(request, TriggerReceiver.class);
+
+            if (notification != null) {
+                fireEvent("add", notification);
+            }
+        }
+    }
+
     /**
      * Update multiple local notifications.
      *
@@ -325,6 +342,12 @@ public class LocalNotification extends CordovaPlugin {
         command.success();
     }
 
+    public static void cancel_Event_Update (int id, Context context) {
+            Notification notification =
+                    Manager.getInstance(context).cancel(id);
+            fireEvent("cancel", notification);
+    }
+
     /**
      * Cancel all scheduled notifications.
      *
@@ -358,6 +381,14 @@ public class LocalNotification extends CordovaPlugin {
         }
 
         command.success();
+    }
+
+    public static void clear_Event_Update(int id, Context context){
+
+        Notification notification =
+                Manager.getInstance(context).clear(id);
+
+        fireEvent("clear", notification);
     }
 
     /**
