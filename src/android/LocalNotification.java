@@ -666,6 +666,13 @@ public class LocalNotification extends CordovaPlugin {
         return Manager.getInstance(cordova.getActivity());
     }
 
+    public static JSONArray notifications_EVENT_UPDATE (Context context) {
+        Manager mgr   = Manager.getInstance(context);
+        List<JSONObject>  options = mgr.getOptionsByType(SCHEDULED);
+
+        return new JSONArray(options);
+    }
+
 }
 
 // codebeat:enable[TOO_MANY_FUNCTIONS]
