@@ -52,6 +52,8 @@ public class ClickReceiver extends AbstractClickReceiver {
         String action   = getAction();
         JSONObject data = new JSONObject();
 
+        Options existingEventDetails = notification.getOptions();
+
         setTextInput(action, data);
         launchAppIf();
 
@@ -64,6 +66,10 @@ public class ClickReceiver extends AbstractClickReceiver {
             notification.cancel();
         } else {
             notification.clear();
+        }
+
+         if(action.equals("snooze")) {
+            LocalNotification.snoozeAlarm(existingEventDetails, getApplicationContext());
         }
     }
 

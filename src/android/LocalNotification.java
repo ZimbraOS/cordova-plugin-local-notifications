@@ -295,6 +295,27 @@ public class LocalNotification extends CordovaPlugin {
         }
     }
 
+    public static void snoozeAlarm(Options options, Context context) {
+        try {
+            JSONObject updatedTrigger = new JSONObject();
+            updatedTrigger.put("type", "calendar");
+            updatedTrigger.put("at", (System.currentTimeMillis() + 60000));
+            options.setTrigger(updatedTrigger);
+
+        } catch (Exception e) {
+            System.err.println("Error while snooze alarm" + e.getMessage());
+        }
+        Manager mgr = Manager.getInstance(context);
+        Request request = new Request(options);
+
+        Notification notification =
+                mgr.schedule(request, TriggerReceiver.class);
+
+        if (notification != null) {
+            fireEvent("add", notification);
+        }
+    }
+
     /**
      * Update multiple local notifications.
      *
