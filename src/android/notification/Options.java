@@ -33,6 +33,7 @@ import android.support.v4.media.session.MediaSessionCompat;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
+import org.json.JSONException;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -174,6 +175,10 @@ public final class Options {
      */
     public JSONObject getTrigger() {
         return options.optJSONObject("trigger");
+    }
+
+    public void setTrigger(JSONObject updatedTrigger) throws JSONException {
+        options.put("trigger", updatedTrigger);
     }
 
     /**

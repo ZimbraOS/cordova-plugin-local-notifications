@@ -32,6 +32,7 @@ import de.appplant.cordova.plugin.notification.receiver.AbstractClickReceiver;
 
 import static de.appplant.cordova.plugin.localnotification.LocalNotification.fireEvent;
 import static de.appplant.cordova.plugin.notification.Options.EXTRA_LAUNCH;
+import de.appplant.cordova.plugin.notification.Options;
 import static de.appplant.cordova.plugin.notification.Request.EXTRA_LAST;
 
 /**
