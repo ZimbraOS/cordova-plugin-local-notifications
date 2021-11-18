@@ -297,9 +297,17 @@ public class LocalNotification extends CordovaPlugin {
 
     public static void snoozeAlarm(Options options, Context context) {
         try {
+            JSONObject data = new JSONObject(options.getDict().getString("data"));
+            // Snooze alarm 1 min befor event start Time.
+            Long snoozeAt = data.getLong("instanceStart") - 60000;
+
+            // if user snooze alarm within 1 mins before or after event start time then it will not snooze.
+            if (snoozeAt < System.currentTimeMillis()) {
+                return;
+            }
             JSONObject updatedTrigger = new JSONObject();
             updatedTrigger.put("type", "calendar");
-            updatedTrigger.put("at", (System.currentTimeMillis() + 60000));
+            updatedTrigger.put("at", snoozeAt);
             options.setTrigger(updatedTrigger);
 
         } catch (Exception e) {
